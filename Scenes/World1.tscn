@@ -1,0 +1,367 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://SceneNodes/actor/actor.res" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/FPSLabel.gd" type="Script" id=2]
+[ext_resource path="res://Assets/rock-island/rock-island.dae" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Numbers/Number1.dae" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Numbers/NumberSpinner.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Numbers/Number2.dae" type="PackedScene" id=6]
+[ext_resource path="res://Assets/Numbers/Number3.dae" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Numbers/Number4.dae" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Numbers/Number5.dae" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Numbers/Number6.dae" type="PackedScene" id=10]
+[ext_resource path="res://SceneNodes/Obelisk/Obelisk.res" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/TopRightLabel.gd" type="Script" id=12]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node
+
+var cube = preload(\"res://SceneNodes/Cube/TriangleCubeBody.tscn\")
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+var counter = 100
+var fini = 500
+
+func _ready():
+	# Called every time the node is added to the scene.
+	# Initialization here
+	set_process(true)
+
+func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+	if fini > 0:
+		var player = get_node(\"actor\")
+		var node = cube.instance()
+		node.translation = player.translation
+		node.translation.y += 30
+		var t = 50
+		node.translation.x += randi() % t - t/2
+		node.translation.z += randi() % t - t/2
+		
+		if counter == 0:
+			add_child(node)
+			counter = 10
+			fini -= 1
+		counter -= 1
+"
+
+[sub_resource type="ProceduralSky" id=2]
+
+radiance_size = 4
+sky_top_color = Color( 0.0470588, 0.454902, 0.976471, 1 )
+sky_horizon_color = Color( 0.909804, 0.904289, 0.556863, 1 )
+sky_curve = 0.353554
+sky_energy = 1.0
+ground_bottom_color = Color( 0.0539246, 0.0875091, 0.121094, 1 )
+ground_horizon_color = Color( 0.482353, 0.788235, 0.952941, 1 )
+ground_curve = 0.01
+ground_energy = 1.0
+sun_color = Color( 1, 1, 1, 1 )
+sun_latitude = 20.0
+sun_longitude = 13.17
+sun_angle_min = 1.0
+sun_angle_max = 10.0
+sun_curve = 0.118921
+sun_energy = 16.0
+texture_size = 2
+_sections_unfolded = [ "Ground", "Sky", "Sun" ]
+
+[sub_resource type="Environment" id=3]
+
+background_mode = 2
+background_sky = SubResource( 2 )
+background_sky_custom_fov = 0.0
+background_color = Color( 0, 0, 0, 1 )
+background_energy = 0.2
+background_canvas_max_layer = 0
+ambient_light_color = Color( 0.851562, 0.857361, 1, 1 )
+ambient_light_energy = 1.0
+ambient_light_sky_contribution = 1.0
+fog_enabled = false
+fog_color = Color( 0.5, 0.6, 0.7, 1 )
+fog_sun_color = Color( 1, 0.9, 0.7, 1 )
+fog_sun_amount = 0.0
+fog_depth_enabled = true
+fog_depth_begin = 10.0
+fog_depth_curve = 1.0
+fog_transmit_enabled = false
+fog_transmit_curve = 1.0
+fog_height_enabled = false
+fog_height_min = 0.0
+fog_height_max = 100.0
+fog_height_curve = 1.0
+tonemap_mode = 0
+tonemap_exposure = 1.0
+tonemap_white = 1.0
+auto_exposure_enabled = false
+auto_exposure_scale = 0.4
+auto_exposure_min_luma = 0.05
+auto_exposure_max_luma = 8.0
+auto_exposure_speed = 0.5
+ss_reflections_enabled = false
+ss_reflections_max_steps = 64
+ss_reflections_fade_in = 0.15
+ss_reflections_fade_out = 2.0
+ss_reflections_depth_tolerance = 0.2
+ss_reflections_roughness = true
+ssao_enabled = false
+ssao_radius = 1.0
+ssao_intensity = 1.0
+ssao_radius2 = 0.0
+ssao_intensity2 = 1.0
+ssao_bias = 0.01
+ssao_light_affect = 0.0
+ssao_color = Color( 0, 0, 0, 1 )
+ssao_quality = 0
+ssao_blur = 3
+ssao_edge_sharpness = 4.0
+dof_blur_far_enabled = false
+dof_blur_far_distance = 10.0
+dof_blur_far_transition = 5.0
+dof_blur_far_amount = 0.1
+dof_blur_far_quality = 1
+dof_blur_near_enabled = false
+dof_blur_near_distance = 2.0
+dof_blur_near_transition = 1.0
+dof_blur_near_amount = 0.1
+dof_blur_near_quality = 1
+glow_enabled = false
+glow_levels/1 = false
+glow_levels/2 = false
+glow_levels/3 = true
+glow_levels/4 = false
+glow_levels/5 = true
+glow_levels/6 = false
+glow_levels/7 = false
+glow_intensity = 0.8
+glow_strength = 1.0
+glow_bloom = 0.0
+glow_blend_mode = 2
+glow_hdr_threshold = 1.0
+glow_hdr_scale = 2.0
+glow_bicubic_upscale = false
+adjustment_enabled = false
+adjustment_brightness = 1.0
+adjustment_contrast = 1.0
+adjustment_saturation = 1.0
+_sections_unfolded = [ "Ambient Light", "Background", "Fog" ]
+
+[node name="Root" type="Node"]
+
+script = SubResource( 1 )
+
+[node name="actor" parent="." instance=ExtResource( 1 )]
+
+transform = Transform( -0.983797, 0, 0.179287, 0, 1, 0, -0.179287, 0, -0.983797, 66.6137, 6.38071, -18.4625 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="FPSLabel" type="Label" parent="."]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 15.0
+margin_top = 8.0
+margin_right = 55.0
+margin_bottom = 22.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "FPS"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script = ExtResource( 2 )
+
+[node name="DebugLabel" type="Label" parent="."]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 14.0
+margin_top = 29.0
+margin_right = 55.0
+margin_bottom = 43.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Debug"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+environment = SubResource( 3 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+
+transform = Transform( -0.967889, -0.164623, 0.189976, -0.0820106, 0.921174, 0.380411, -0.237625, 0.352616, -0.905095, 0, 12.8304, 0 )
+layers = 1
+light_color = Color( 1, 1, 1, 1 )
+light_energy = 0.5
+light_negative = false
+light_specular = 0.5
+light_cull_mask = -1
+shadow_enabled = false
+shadow_color = Color( 0, 0, 0, 1 )
+shadow_bias = 0.1
+shadow_contact = 0.0
+shadow_reverse_cull_face = false
+editor_only = false
+directional_shadow_mode = 2
+directional_shadow_split_1 = 0.1
+directional_shadow_split_2 = 0.2
+directional_shadow_split_3 = 0.5
+directional_shadow_blend_splits = false
+directional_shadow_normal_bias = 0.8
+directional_shadow_bias_split_scale = 0.25
+directional_shadow_depth_range = 0
+directional_shadow_max_distance = 200.0
+_sections_unfolded = [ "Directional Shadow", "Light" ]
+
+[node name="Islands" type="Spatial" parent="."]
+
+editor/display_folded = true
+
+[node name="IslandRock" parent="Islands" instance=ExtResource( 3 )]
+
+transform = Transform( 0.916127, 0, -0.400887, 0, 1, 0, 0.400887, 0, 0.916127, 0, 0, 0 )
+
+[node name="IslandRock2" parent="Islands" instance=ExtResource( 3 )]
+
+transform = Transform( 0.885812, 0, 0.464045, 0, 1, 0, -0.464045, 0, 0.885812, 66.3985, 2.86188, -15.3818 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="IslandRock3" parent="Islands" instance=ExtResource( 3 )]
+
+transform = Transform( -0.986863, 0, 0.161562, 0, 1, 0, -0.161562, 0, -0.986863, 42.2778, -3.8223, 50.2539 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="IslandRock4" parent="Islands" instance=ExtResource( 3 )]
+
+transform = Transform( 0.592901, 0, -0.805275, 0, 1, 0, 0.805275, 0, 0.592901, -33.6696, 4.18638, 51.6848 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="IslandRock5" parent="Islands" instance=ExtResource( 3 )]
+
+transform = Transform( 0.53232, 0, 0.846543, 0, 1, 0, -0.846543, 0, 0.53232, -60.6439, -4.91847, -14.5723 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="IslandRock6" parent="Islands" instance=ExtResource( 3 )]
+
+transform = Transform( 0.804142, 0, -0.594438, 0, 1, 0, 0.594438, 0, 0.804142, -0.705953, 11.2853, -58.5697 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Numbers" type="Spatial" parent="."]
+
+editor/display_folded = true
+
+[node name="Scene Root" parent="Numbers" instance=ExtResource( 4 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 66.2005, 17.2919, -15.4566 )
+script = ExtResource( 5 )
+
+[node name="Scene Root2" parent="Numbers" instance=ExtResource( 6 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.794595, 23.3456, -60.2853 )
+script = ExtResource( 5 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Scene Root3" parent="Numbers" instance=ExtResource( 7 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -61.5099, 14.0606, -15.028 )
+script = ExtResource( 5 )
+
+[node name="Scene Root4" parent="Numbers" instance=ExtResource( 8 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -33.8162, 18.3951, 50.6605 )
+script = ExtResource( 5 )
+
+[node name="Scene Root5" parent="Numbers" instance=ExtResource( 9 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42.4966, 10.1241, 49.8944 )
+script = ExtResource( 5 )
+
+[node name="Scene Root6" parent="Numbers" instance=ExtResource( 10 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.778547, 17.1618, -1.10522 )
+script = ExtResource( 5 )
+
+[node name="Obelisks" type="Spatial" parent="."]
+
+[node name="Obelisk" parent="Obelisks" instance=ExtResource( 11 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 66, 1, -15 )
+_sections_unfolded = [ "Transform" ]
+target_path = NodePath("ObeliskTarget")
+player_path = NodePath("../../actor")
+checkbox_path = NodePath("ObeliskCheckbox")
+
+[node name="ObeliskTarget" type="Spatial" parent="Obelisks/Obelisk"]
+
+transform = Transform( 0.999001, 0, 0.0447879, 0, 1, 0, -0.0447879, 0, 0.999001, -65.0984, 18.9835, -45.147 )
+
+[node name="ObeliskCheckbox" type="CheckBox" parent="Obelisks/Obelisk"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 15.0
+margin_top = 69.0
+margin_right = 146.0
+margin_bottom = 92.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = true
+enabled_focus_mode = 0
+shortcut = null
+group = null
+text = "Activate Obelisk"
+flat = false
+align = 0
+
+[node name="Label" type="Label" parent="."]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = 803.0
+margin_top = -581.0
+margin_right = -11.0
+margin_bottom = -465.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Controls:
+WASD - Movement
+Space - Jump/Fly Up
+Shift - Fly Down
+Ctrl - Sprint
+F - Enable/Disable Flying
+Tab - Enable/Disable Mouse Lock"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script = ExtResource( 12 )
+_sections_unfolded = [ "Anchor", "Margin" ]
+
+
